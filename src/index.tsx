@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import GameBoard from './game-board'
+import Goban from './goban'
 
 class MyComponent extends React.Component {
   render() {
-    return <GameBoard />
+    return <Goban />
   }
 }
 
