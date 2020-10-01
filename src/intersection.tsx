@@ -1,12 +1,20 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Wrapper = styled.div`
+import { IntersectionValue } from './position'
+import Stone from './stone'
+
+const Wrapper = styled.button`
+  font-size: 100%;
+  font-family: inherit;
+  border: 0;
+  padding: 0;
   position: relative;
   background-color: #e3ccb5;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 2%;
 `
 
 const HorizontalLine = styled.span`
@@ -37,24 +45,35 @@ const StartPoint = styled.span`
 `
 
 type Parameters = {
+  connectsBottom: boolean
   connectsLeft: boolean
   connectsRight: boolean
   connectsTop: boolean
-  connectsBottom: boolean
+  label: string
+  placeStone: (stone: IntersectionValue) => void
   starPoint: boolean
+  stone: IntersectionValue
 }
 
 const Intersection = ({
+  connectsBottom,
   connectsLeft,
   connectsRight,
   connectsTop,
-  connectsBottom,
+  label,
   starPoint,
+  stone,
+  placeStone,
 }: Parameters): React.ReactElement => (
-  <Wrapper>
+  <Wrapper aria-label={label} onClick={placeStone}>
     <HorizontalLine connectsLeft={connectsLeft} connectsRight={connectsRight} />
     <VerticalLine connectsTop={connectsTop} connectsBottom={connectsBottom} />
-    {starPoint && <StartPoint />}
+
+    {stone === 0 ? (
+      starPoint && <StartPoint />
+    ) : (
+      <Stone isBlack={stone === 1} />
+    )}
   </Wrapper>
 )
 
